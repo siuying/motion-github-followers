@@ -1,4 +1,6 @@
 class LoginController < Formotion::FormController
+  attr_accessor :validator
+
   def init
     form = Formotion::Form.new({
       sections: [
@@ -38,10 +40,19 @@ class LoginController < Formotion::FormController
     self.form.on_submit do |form|
       self.login(form.render)
     end
+    self.validator = LoginValidator.new
     self
   end
 
   def login(data)
+    if validator.valid?(data)
+      puts "login: #{data}"
+
+    else
+      puts "validation error: #{validator.error_message}"
+      App.alert "Cannot Login\n#{validator.error_message}"
+
+    end
   end
 
 end

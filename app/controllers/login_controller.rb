@@ -38,21 +38,35 @@ class LoginController < Formotion::FormController
     })
     self.initWithForm(form)
     self.form.on_submit do |form|
-      self.login(form.render)
+      data = form.render
+      if validator.valid?(data)
+        login(data[:username], data[:password])
+
+      else
+        puts "validation error: #{validator.error_message}"
+        App.alert "Cannot Login\n#{validator.error_message}"
+
+      end
     end
     self.validator = LoginValidator.new
     self
   end
 
-  def login(data)
-    if validator.valid?(data)
-      puts "login: #{data}"
-
-    else
-      puts "validation error: #{validator.error_message}"
-      App.alert "Cannot Login\n#{validator.error_message}"
-
+  def login(username, password)
+    login_failed = lambda do |error|
+      App.alert "Login Failed: #{error}"
     end
+
+    login_succeed = lambda do |auth|
+      if auth[:token]
+        Settings.token = auth[:token]
+        App.alert "Login OK"
+      else
+        login_failed.call("Token not available")
+      end
+    end
+
+    App.delegate.github.login(username, password, login_succeed, login_failed)
   end
 
 end

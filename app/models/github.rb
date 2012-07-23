@@ -24,7 +24,14 @@ class Github
         json = BubbleWrap::JSON.parse(resp.body.to_str)
         success.call(json)
       else
-        failure.call(resp.error_message)
+        if resp.error_message
+          failure.call(resp.error_message)
+        elsif resp.headers["Status"]
+          status = resp.headers["Status"]
+          failure.call(status)
+        else
+          failure.call(resp.status_code.to_s)
+        end
       end
     end
   end

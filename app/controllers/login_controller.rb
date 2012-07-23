@@ -60,7 +60,7 @@ class LoginController < Formotion::FormController
     login_succeed = lambda do |auth|
       if auth[:token]
         Settings.token = auth[:token]
-
+        App.delegate.github.token = auth[:token]
         App.delegate.router.pop(false)
         App.delegate.router.open("followers")
       else

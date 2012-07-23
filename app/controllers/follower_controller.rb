@@ -14,7 +14,10 @@ class FollowerController < UITableViewController
 
     self.tableView.delegate = self
     self.tableView.dataSource = self
+    self.reload
+  end
 
+  def reload
     if login
       self.title = "#{login}'s Followers"
       load_user(login)
@@ -95,6 +98,7 @@ class FollowerController < UITableViewController
   def logout
     puts "logout"
     Settings.token = nil
+    App.delegate.github.token = nil
 
     App.delegate.router.pop(false)
     App.delegate.router.open("login")

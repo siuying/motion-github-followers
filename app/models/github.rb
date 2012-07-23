@@ -32,6 +32,8 @@ class Github
   def api_request(http_method, method, options, success, failure, use_token=true)
     url = request_url(method, use_token)
     options = {format: :json}.merge(options)
+
+    puts "api_request: #{url}, #{options}"
     BubbleWrap::HTTP.send(http_method, url, options) do |resp|
       if resp.ok?
         json = BubbleWrap::JSON.parse(resp.body.to_str)

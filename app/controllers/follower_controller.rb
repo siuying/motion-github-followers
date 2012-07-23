@@ -1,6 +1,6 @@
 class FollowerController < UIViewController
   attr_accessor :login
-  attr_accessor :followers
+  attr_accessor :followers, :user
 
   def initWithParams(params = {})
     init()
@@ -24,17 +24,31 @@ class FollowerController < UIViewController
   def load_current_user
     puts "load current user"
     self.navigationController.navigationBar.topItem.leftBarButtonItem = UIBarButtonItem.alloc.initWithTitle("Logout", style:UIBarButtonItemStylePlain, target:self, action:'logout')
+
+    success = lambda do |user_data|
+      self.user = User.new(user_data)
+      puts "user loaded: #{self.user}"
+      load_user(self.user.login)
+    end
+
+    failure = lambda do |error, code|
+      App.alert("Failed loading user: #{error} (#{code})")
+    end
+
+    App.delegate.github.user(success, failure)
   end
 
-  def load_user
-    puts "load user"
-    # success = lambda do |followers_data|
-    # end
+  def load_user(user_login)
+    puts "load user: #{user_login}"
+    success = lambda do |followers_data|
+      puts "loaded followers: #{followers_data}"
+    end
 
-    # failure = lambda do |err_msg, code|
-    # end
+    failure = lambda do |error, code|
+      App.alert("Failed loading followers: #{error} (#{code})")
+    end
 
-    # App.delegate.github.followers(login, success, failure)
+    App.delegate.github.followers(user_login, success, failure)
   end
 
   def logout

@@ -20,6 +20,7 @@ class AppDelegate
   private
   def setup_github
     @github = Github.new
+    @github.token = Settings.token
   end
 
   def setup_urls

@@ -13,10 +13,19 @@ class FollowerController < UIViewController
     super
 
     self.title = "Followers"
-    load_user(login)
+    if login
+      load_user(login)
+    else
+      load_current_user
+    end
   end
 
   private
+  def load_current_user
+    puts "load current user"
+    self.navigationController.navigationBar.topItem.leftBarButtonItem = UIBarButtonItem.alloc.initWithTitle("Logout", style:UIBarButtonItemStylePlain, target:self, action:'logout')
+  end
+
   def load_user
     puts "load user"
     # success = lambda do |followers_data|
@@ -28,4 +37,11 @@ class FollowerController < UIViewController
     # App.delegate.github.followers(login, success, failure)
   end
 
+  def logout
+    puts "logout"
+    Settings.token = nil
+
+    App.delegate.router.pop(false)
+    App.delegate.router.open("login")
+  end
 end

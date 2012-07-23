@@ -60,7 +60,9 @@ class LoginController < Formotion::FormController
     login_succeed = lambda do |auth|
       if auth[:token]
         Settings.token = auth[:token]
-        App.alert "Login OK"
+
+        App.delegate.router.pop(false)
+        App.delegate.router.open("followers")
       else
         login_failed.call("Token not available")
       end

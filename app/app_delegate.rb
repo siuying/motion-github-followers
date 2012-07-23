@@ -31,7 +31,7 @@ class AppDelegate
 
     @router.map("login", LoginController, modal: true)
     @router.map("followers/:login", FollowerController)
-    @router.map("followers", FollowerController, modal: true)
+    @router.map("followers", FollowerController)
 
     @window.rootViewController = @router.navigation_controller
     @window.makeKeyAndVisible

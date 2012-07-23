@@ -7,4 +7,7 @@ Bundler.require
 
 Motion::Project::App.setup do |app|
   app.name = 'GithubClient'
+  app.pods do
+    pod 'SDWebImage'
+  end
 end

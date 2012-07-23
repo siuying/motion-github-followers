@@ -1,0 +1,5 @@
+PODS:
+  - SDWebImage (2.6)
+
+DEPENDENCIES:
+  - SDWebImage

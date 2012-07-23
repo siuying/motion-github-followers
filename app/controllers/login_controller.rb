@@ -53,7 +53,7 @@ class LoginController < Formotion::FormController
   end
 
   def login(username, password)
-    login_failed = lambda do |error|
+    login_failed = lambda do |error, code|
       App.alert "Login Failed: #{error}"
     end
 

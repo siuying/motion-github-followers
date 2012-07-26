@@ -4,7 +4,7 @@ This is a sample RubyMotion project that find your followers and follower's foll
 
 Check the presentation [video](https://vimeo.com/46380771) and [slides](https://speakerdeck.com/u/siuying/p/ios-development-with-ruby-using-rubymotion)
 
-![](screen.png)
+![](https://github.com/siuying/motion-github-followers/blob/master/screen.png?raw=true)
 
 ## License
 

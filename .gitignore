@@ -5,3 +5,4 @@ resources/*.momd
 resources/*.storyboardc
 vendor/Pods/build-iPhoneSimulator/libPods.a
 vendor/Pods/build
+vendor/Pods/Pods.xcodeproj/project.pbxproj

@@ -1,10 +1,10 @@
-RubyMotion github followers
----
+# RubyMotion github followers
 
 This is a sample RubyMotion project that find your followers and follower's followers.
 
 Check the presentation [video](https://vimeo.com/46380771) and [slides](https://speakerdeck.com/u/siuying/p/ios-development-with-ruby-using-rubymotion)
 
+![](screen.png)
 
 ## License
 
